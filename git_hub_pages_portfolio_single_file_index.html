@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name – Engineering Portfolio</title>
+  <meta name="description" content="Engineering portfolio showcasing CAD projects, drawings, and work experience." />
+  <style>
+    :root{
+      --bg:#0b0b0f; --card:#121218; --ink:#e9e9ef; --muted:#b9b9c7; --link:#7aa2ff; --accent:#84ffc9;
+      --max:1000px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--ink)}
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:var(--max); margin-inline:auto; padding:24px}
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(8px); background:color-mix(in oklab, var(--bg) 85%, transparent); border-bottom:1px solid #2a2a34}
+    nav{display:flex; gap:16px; align-items:center; justify-content:space-between}
+    nav .left{display:flex; gap:14px; align-items:center}
+    nav .brand{font-weight:800; letter-spacing:0.3px}
+    nav .links{display:flex; gap:14px; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .8rem; border:1px solid #2a2a34; border-radius:.6rem; background:#161622}
+    .btn:hover{background:#1c1c2a}
+    main{display:block}
+    section{padding:56px 0; border-bottom:1px solid #1f1f28}
+    h1{font-size:clamp(28px, 5vw, 44px); line-height:1.1; margin:0}
+    h2{font-size:clamp(22px, 3.6vw, 30px); line-height:1.2; margin:0 0 12px}
+    h3{margin:18px 0 8px}
+    p{margin:10px 0}
+    .lead{color:var(--muted)}
+
+    .grid{display:grid; gap:18px}
+    .grid-2{grid-template-columns:repeat(2, minmax(0,1fr))}
+    @media (max-width:760px){.grid-2{grid-template-columns:1fr}}
+
+    .card{background:var(--card); border:1px solid #232332; border-radius:16px; padding:18px}
+    figure{margin:0}
+    img{max-width:100%; height:auto; display:block; border-radius:12px}
+
+    /* Carousel */
+    .carousel{position:relative}
+    .slides{position:relative; overflow:hidden; border-radius:14px}
+    .slide{display:none; inset:0; width:100%}
+    .slide[aria-current="true"]{display:block}
+    .carousel .ctrl{position:absolute; top:50%; translate:0 -50%; background:#0f0f18cc; color:#fff; border:1px solid #3a3a48; padding:.35rem .6rem; border-radius:10px; cursor:pointer}
+    .carousel .prev{left:10px}
+    .carousel .next{right:10px}
+    .carousel .dots{display:flex; gap:6px; justify-content:center; margin-top:10px}
+    .carousel .dot{width:8px; height:8px; border-radius:999px; background:#3b3b4a}
+    .carousel .dot[aria-current="true"]{background:#9aa0ff}
+
+    /* Simple list blocks */
+    .bullets{padding-left:20px}
+    .bullets li{margin:6px 0}
+
+    footer{padding:36px 0; color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="left">
+          <span class="brand">Your Name</span>
+          <span class="muted">· Engineering Portfolio</span>
+        </div>
+        <div class="links">
+          <a class="btn" href="#portfolio">Portfolio</a>
+          <a class="btn" href="#experience">Work Experience</a>
+          <a class="btn" href="Resume_YourName.pdf" target="_blank" rel="noreferrer">Resume</a>
+          <a class="btn" href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn" href="https://github.com/your-github" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO / ABOUT -->
+    <section id="about">
+      <div class="container grid grid-2" style="align-items:center">
+        <div>
+          <h1>Engineering Portfolio<br/><span class="lead">A showcase of selected CAD projects and build work.</span></h1>
+          <p class="lead">Drafter with 3+ years producing print‑ready drawings: machined parts with GD&T, sheet‑metal flats, weldments, and piping isometrics. Fast revisions with xref/sheet set integrity.</p>
+          <p class="lead">Tools: AutoCAD · SolidWorks · Inventor · eDrawings · PDM/Vault</p>
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn" href="#portfolio">See projects ↓</a>
+            <a class="btn" href="mailto:you@example.com">you@example.com</a>
+          </div>
+        </div>
+        <div>
+          <div class="card"><figure><img src="https://images.unsplash.com/photo-1581094651181-3592d13e1be9?q=80&w=1200&auto=format&fit=crop" alt="Portfolio cover image placeholder"/></figure></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <div class="container">
+        <h2>Selected Projects</h2>
+        <p class="lead">Each project page includes a brief, highlights, and artifacts (drawing PDF, STEP/DWG, short video).</p>
+
+        <!-- Project 1 -->
+        <article class="card" style="margin-top:16px">
+          <h3>Glaukos – Senior Capstone Fixture</h3>
+          <div class="grid grid-2" style="align-items:start">
+            <div>
+              <div class="carousel" data-id="capstone">
+                <div class="slides">
+                  <img class="slide" aria-current="true" src="https://picsum.photos/seed/cap1/1200/700" alt="Fixture render"/>
+                  <img class="slide" src="https://picsum.photos/seed/cap2/1200/700" alt="Mechanism detail"/>
+                  <img class="slide" src="https://picsum.photos/seed/cap3/1200/700" alt="Control UI screenshot"/>
+                </div>
+                <button class="ctrl prev" aria-label="Previous slide">‹</button>
+                <button class="ctrl next" aria-label="Next slide">›</button>
+                <div class="dots" aria-label="Slide dots" role="tablist"></div>
+              </div>
+            </div>
+            <div>
+              <p><strong>Objective:</strong> Develop a fatigue‑test fixture with anatomically accurate interface and ±1% force capture. <strong>Result:</strong> Working fixture capable of downward force + rotational rub, with logged forces.</p>
+              <ul class="bullets">
+                <li>Exploded assembly with BOM balloons</li>
+                <li>Datum scheme A‑B‑C for critical faces (ASME Y14.5)</li>
+                <li>Section & detail views for fits; surface finish + thread callouts</li>
+              </ul>
+              <p>
+                <a class="btn" href="#" target="_blank">Drawing PDF</a>
+                <a class="btn" href="#" target="_blank">STEP</a>
+                <a class="btn" href="#" target="_blank">30–60s Video</a>
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="card" style="margin-top:16px">
+          <h3>PLIF Surgical Tool Design</h3>
+          <div class="grid grid-2" style="align-items:start">
+            <div>
+              <div class="carousel" data-id="plif">
+                <div class="slides">
+                  <img class="slide" aria-current="true" src="https://picsum.photos/seed/plif1/1200/700" alt="Inserter tool"/>
+                  <img class="slide" src="https://picsum.photos/seed/plif2/1200/700" alt="Handle with spring + plunger"/>
+                  <img class="slide" src="https://picsum.photos/seed/plif3/1200/700" alt="Socket end threaded"/>
+                </div>
+                <button class="ctrl prev" aria-label="Previous slide">‹</button>
+                <button class="ctrl next" aria-label="Next slide">›</button>
+                <div class="dots" aria-label="Slide dots" role="tablist"></div>
+              </div>
+            </div>
+            <div>
+              <p><strong>Objective:</strong> Design interbody + inserter with socket‑style locking; <strong>Result:</strong> Robust tool with disassembly for cleaning and reliable insert‑and‑rotate procedure.</p>
+              <ul class="bullets">
+                <li>Exploded view + balloons; rev table</li>
+                <li>Functional GD&T (position, perpendicularity)</li>
+                <li>Thread table; surface finish notes</li>
+              </ul>
+              <p>
+                <a class="btn" href="#" target="_blank">Drawing PDF</a>
+                <a class="btn" href="#" target="_blank">STEP</a>
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="card" style="margin-top:16px">
+          <h3>Butterfly Valve – Throttle Body</h3>
+          <div class="grid grid-2" style="align-items:start">
+            <div>
+              <div class="carousel" data-id="valve">
+                <div class="slides">
+                  <img class="slide" aria-current="true" src="https://picsum.photos/seed/valve1/1200/700" alt="3/4 view"/>
+                  <img class="slide" src="https://picsum.photos/seed/valve2/1200/700" alt="Top‑down view"/>
+                </div>
+                <button class="ctrl prev" aria-label="Previous slide">‹</button>
+                <button class="ctrl next" aria-label="Next slide">›</button>
+                <div class="dots" aria-label="Slide dots" role="tablist"></div>
+              </div>
+            </div>
+            <div>
+              <p><strong>Objective:</strong> Design a mechanical throttle body including fasteners; <strong>Result:</strong> Working assembly allowing cable‑driven pivot for carburetor air intake regulation.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <h2>Work Experience</h2>
+        <div class="card">
+          <h3>Mechanical Design / CAD Drafter — Company Name</h3>
+          <p class="lead">Jan 2023 – Present · Remote</p>
+          <ul class="bullets">
+            <li>Produced print‑ready drawings (GD&T per ASME Y14.5) for machined parts, sheet‑metal, and weldments</li>
+            <li>Maintained xref and Sheet Set integrity; reduced check‑backs by 50%</li>
+            <li>Collaborated via PDM/Vault; processed ECR/ECO with clouded revisions</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container grid grid-2">
+      <div>
+        <strong>Resume</strong>
+        <p><a href="Resume_YourName.pdf" target="_blank" rel="noreferrer">Open Resume PDF</a></p>
+      </div>
+      <div>
+        <strong>Contact</strong>
+        <p>📱 (555) 123‑4567 · ✉️ <a href="mailto:you@example.com">you@example.com</a></p>
+        <p>🔗 <a href="https://linkedin.com/in/your-handle" target="_blank" rel="noreferrer">LinkedIn</a> · <a href="https://github.com/your-github" target="_blank" rel="noreferrer">GitHub</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Minimal, reusable carousel with dots + prev/next
+    function initCarousel(el){
+      const slides = [...el.querySelectorAll('.slide')];
+      const prev = el.querySelector('.prev');
+      const next = el.querySelector('.next');
+      const dotsWrap = el.querySelector('.dots');
+      let i = slides.findIndex(s => s.getAttribute('aria-current') === 'true');
+      if(i < 0) i = 0;
+
+      function render(){
+        slides.forEach((s, idx)=> s.setAttribute('aria-current', String(idx===i)) );
+        dotsWrap.querySelectorAll('.dot').forEach((d, idx)=> d.setAttribute('aria-current', String(idx===i)) );
+      }
+      // dots
+      dotsWrap.innerHTML = slides.map((_, idx)=>`<button class="dot" aria-label="Go to slide ${idx+1}"></button>`).join('');
+      dotsWrap.querySelectorAll('.dot').forEach((d, idx)=> d.addEventListener('click', ()=>{ i = idx; render(); }));
+
+      prev.addEventListener('click', ()=>{ i = (i-1+slides.length)%slides.length; render(); });
+      next.addEventListener('click', ()=>{ i = (i+1)%slides.length; render(); });
+      render();
+    }
+    document.querySelectorAll('.carousel').forEach(initCarousel);
+  </script>
+</body>
+</html>
