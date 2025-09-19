@@ -9,7 +9,7 @@
     :root{
       --bg:#0b0b0f; --card:#121218; --ink:#e9e9ef; --muted:#b9b9c7; --link:#7aa2ff;
       --max:1000px;
-      --h:68px;            /* header height used for sticky offset */
+      --h:0px; /* no header */
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -22,49 +22,32 @@
     a:hover{text-decoration:underline}
     .container{max-width:var(--max); margin-inline:auto; padding:24px}
 
-    /* HEADER / NAV (sticky) */
-    header{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter:saturate(1.2) blur(8px);
-      background:color-mix(in oklab, var(--bg) 85%, transparent);
-      border-bottom:1px solid #2a2a34;
-    }
-    nav{display:flex; gap:16px; align-items:center; justify-content:space-between; min-height:var(--h)}
-    nav .left{display:flex; gap:14px; align-items:center}
-    nav .brand{font-weight:800; letter-spacing:0.3px}
-    nav .links{display:flex; gap:14px; flex-wrap:wrap}
-    .btn{
-      display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .8rem;
-      border:1px solid #2a2a34; border-radius:.6rem; background:#161622
-    }
-    .btn:hover{background:#1c1c2a}
-
     /* HERO (full-bleed background + dark overlay) */
     .hero{
       position: relative;
       min-height: 72vh;
       display: grid; place-items: center; text-align: center;
       background: url('https://images.unsplash.com/photo-1581093448799-55d9b1c40b19?q=80&w=1920&auto=format&fit=crop') center / cover no-repeat;
-      padding-bottom: 40px; /* so tabs can overlap nicely */
+      padding-bottom: 40px; /* lets tabs overlap */
     }
     .hero::before{content:""; position:absolute; inset:0; background:rgba(0,0,0,.45)}
     .hero .inner{position:relative; z-index:1; padding:40px 16px; max-width:1000px}
     .hero h1{
-      margin:0 0 12px; font-size:clamp(42px, 10vw, 96px); font-weight:900;
-      letter-spacing:.04em; text-transform:uppercase; color:#fff
+      margin:0 0 12px;
+      font-size:clamp(32px, 9vw, 96px);
+      font-weight:900;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      color:#fff;
+      line-height:1.05;
     }
+    .nowrap{ white-space: nowrap; }  /* keep each line together */
     .hero p{margin:0 0 22px; font-size:clamp(16px, 2.2vw, 26px); color:#f0f0f5}
-    .btn-cta{
-      display:inline-flex; align-items:center; gap:.5rem; padding:.7rem 1.1rem;
-      border-radius:10px; background:#fff; color:#111; border:1px solid #d7d7e0;
-      text-decoration:none; font-weight:600;
-    }
-    .btn-cta:hover{background:#f3f3f8}
 
-    /* TAB BAR (overlaps hero bottom, then sticks under header when scrolling) */
+    /* TAB BAR (overlaps hero bottom; sticks to top on scroll) */
     .tabbar{
       position: sticky;
-      top: var(--h);           /* sits just below sticky header */
+      top: var(--h);           /* 0 */
       z-index: 40;
       background: rgba(18,18,24,.92);
       border-top: 1px solid #2a2a34;
@@ -81,7 +64,7 @@
       gap: 18px;
       list-style: none;
     }
-    .tabs .spacer{ flex: 1; } /* pushes icons/links to right */
+    .tabs .spacer{ flex: 1; }
     .tab{
       text-transform: uppercase;
       letter-spacing: .12em;
@@ -100,7 +83,7 @@
     }
 
     /* GENERAL LAYOUT */
-    section{padding:56px 0; border-bottom:1px solid #1f1f28; scroll-margin-top: calc(var(--h) + 14px)}
+    section{padding:56px 0; border-bottom:1px solid #1f1f28; scroll-margin-top: 14px}
     h2{font-size:clamp(22px, 3.6vw, 30px); line-height:1.2; margin:0 0 12px}
     h3{margin:18px 0 8px}
     p{margin:10px 0}
@@ -136,45 +119,24 @@
 </head>
 <body>
 
-  <!-- HEADER (sticky) -->
-  <header>
-    <div class="container">
-      <nav>
-        <div class="left">
-          <span class="brand">Santiago Consuegra Guerrero</span>
-          <span class="muted">· CAD Portfolio</span>
-        </div>
-        <div class="links">
-          <a class="btn" href="#portfolio">Portfolio</a>
-          <a class="btn" href="#experience">Work Experience</a>
-          <a class="btn" href="Resume_Santiago_Consuegra.pdf" target="_blank" rel="noreferrer">Resume</a>
-          <a class="btn" href="https://www.linkedin.com/in/santiagoconsuegra" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a class="btn" href="https://github.com/santierodo" target="_blank" rel="noreferrer">GitHub</a>
-        </div>
-      </nav>
-    </div>
-  </header>
-
-  <!-- HERO -->
+  <!-- HERO (two lines) -->
   <section class="hero" id="about">
     <div class="inner">
-      <h1>SANTIAGO CONSUEGRA GUERRERO</h1>
+      <h1>
+        <span class="nowrap">SANTIAGO CONSUEGRA</span><br/>
+        <span class="nowrap">GUERRERO</span>
+      </h1>
       <p>HVAC Design & Estimating Assistant · CAD Drafter · 3D Printing Enthusiast</p>
-      <!-- Optional CTA
-      <p><a class="btn-cta" href="Resume_Santiago_Consuegra.pdf" download>⬇ Download Resume</a></p>
-      -->
     </div>
   </section>
 
-  <!-- TABS (overlap hero bottom; stick under header on scroll) -->
+  <!-- TABS (only Portfolio, Resume, LinkedIn) -->
   <nav class="tabbar" id="tabs">
     <ul class="tabs">
       <li><a class="tab" href="#portfolio" aria-current="true">Portfolio</a></li>
-      <li><a class="tab" href="#experience">Work Experience</a></li>
       <li class="spacer"></li>
       <li><a class="tab" href="Resume_Santiago_Consuegra.pdf" target="_blank" rel="noreferrer">Resume</a></li>
       <li><a class="tab" href="https://www.linkedin.com/in/santiagoconsuegra" target="_blank" rel="noreferrer">LinkedIn</a></li>
-      <li><a class="tab" href="https://github.com/santierodo" target="_blank" rel="noreferrer">GitHub</a></li>
     </ul>
   </nav>
 
@@ -281,7 +243,7 @@
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
+  <!-- EXPERIENCE (still available, just not in tabs) -->
   <section id="experience">
     <div class="container">
       <h2>Work Experience</h2>
@@ -294,7 +256,6 @@
           <li>Collaborated via PDM/Vault; processed ECR/ECO with clouded revisions</li>
         </ul>
       </div>
-      <!-- Duplicate the card above for more roles -->
     </div>
   </section>
 
@@ -308,15 +269,14 @@
       <div>
         <strong>Contact</strong>
         <p>✉️ <a href="mailto:santierodo@example.com">santierodo@example.com</a></p>
-        <p>🔗 <a href="https://linkedin.com/in/santiagoconsuegra" target="_blank" rel="noreferrer">LinkedIn</a> ·
-               <a href="https://github.com/santierodo" target="_blank" rel="noreferrer">GitHub</a></p>
+        <p>🔗 <a href="https://linkedin.com/in/santiagoconsuegra" target="_blank" rel="noreferrer">LinkedIn</a></p>
       </div>
     </div>
   </footer>
 
   <!-- SCRIPTS -->
   <script>
-    // Minimal, reusable carousel with dots + prev/next
+    // Minimal carousel with dots + prev/next
     function initCarousel(el){
       const slides = [...el.querySelectorAll('.slide')];
       const prev = el.querySelector('.prev');
@@ -337,7 +297,7 @@
     }
     document.querySelectorAll('.carousel').forEach(initCarousel);
 
-    // Simple scroll spy to highlight active tab
+    // Scroll spy (only highlights tabs that exist; here it's just #portfolio)
     const sections = [...document.querySelectorAll('section[id]')];
     const tabLinks = [...document.querySelectorAll('.tabbar .tab[href^="#"]')];
     const byId = id => tabLinks.find(a => a.getAttribute('href') === '#' + id);
@@ -350,10 +310,11 @@
           if (link) link.setAttribute('aria-current','true');
         }
       });
-    }, {rootMargin: `-${getComputedStyle(document.documentElement).getPropertyValue('--h').trim()} 0px -60% 0px`, threshold: 0.1});
+    }, {rootMargin: `0px 0px -60% 0px`, threshold: 0.1});
 
     sections.forEach(s => obs.observe(s));
   </script>
 </body>
 </html>
+
 
