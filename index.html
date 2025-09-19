@@ -13,34 +13,51 @@
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-         background:var(--bg); color:var(--ink)}
+    body{
+      margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background:var(--bg); color:var(--ink)
+    }
     a{color:var(--link); text-decoration:none}
     a:hover{text-decoration:underline}
     .container{max-width:var(--max); margin-inline:auto; padding:24px}
 
     /* HERO (full-bleed background + overlay) */
     .hero{
-      position:relative; min-height:72vh; display:grid; place-items:center; text-align:center;
+      position:relative; min-height:72vh; display:grid; place-items:center;
       background:url('https://images.unsplash.com/photo-1581093448799-55d9b1c40b19?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
-      padding-bottom:40px; /* lets tabs overlap */
+      padding-bottom:50px; /* lets tabs overlap */
+      text-align:center;
     }
     .hero::before{content:""; position:absolute; inset:0; background:rgba(0,0,0,.45)}
-    .hero .inner{position:relative; z-index:1; padding:40px 16px; max-width:1000px}
+    .hero .inner{position:relative; z-index:1; padding:40px 16px; max-width:1000px; margin-inline:auto}
+
+    /* ** Center each name line perfectly ** */
     .hero h1{
-      margin:0 0 12px; font-size:clamp(32px,9vw,96px); font-weight:900;
-      letter-spacing:.04em; text-transform:uppercase; color:#fff; line-height:1.05;
+      margin:0 0 12px;
+      font-size:clamp(32px,9vw,96px);
+      font-weight:900;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      color:#fff;
+      line-height:1.05;
+      display:flex;                /* key */
+      flex-direction:column;       /* key */
+      align-items:center;          /* key */
     }
-    .nowrap{white-space:nowrap;} /* keeps each line together */
+    .hero h1 .line{
+      display:block;
+      white-space:nowrap;          /* keep each line intact */
+    }
+
     .hero p{margin:0 0 22px; font-size:clamp(16px,2.2vw,26px); color:#f0f0f5}
 
     /* TAB BAR (overlaps hero bottom; sticks to top on scroll) */
     .tabbar{
-      position:sticky; top:var(--h); z-index:40;
+      position:sticky; top:var(--h); z-index:10;
       background:rgba(18,18,24,.92);
       border-top:1px solid #2a2a34; border-bottom:1px solid #2a2a34;
       backdrop-filter:blur(6px) saturate(1.1);
-      margin-top:-40px;
+      margin-top:-50px; /* overlap into hero */
     }
     .tabs{max-width:var(--max); margin:0 auto; padding:12px 24px; display:flex; align-items:center; gap:18px; list-style:none}
     .tabs .spacer{flex:1}
@@ -62,6 +79,11 @@
     .card{background:var(--card); border:1px solid #232332; border-radius:16px; padding:18px}
     img{max-width:100%; height:auto; display:block; border-radius:12px}
 
+    /* Buttons used in project links */
+    .btn{display:inline-block; padding:8px 12px; margin:4px 10px 0 0; border:1px solid #2a2a34; border-radius:10px; background:#161622; color:#e9e9ef; font-weight:700; letter-spacing:.08em; text-transform:uppercase}
+    .btn:hover{background:#1c1c2a}
+    .btn:focus{outline:2px solid #2a2a34; outline-offset:2px}
+
     /* CAROUSEL */
     .carousel{position:relative}
     .slides{position:relative; overflow:hidden; border-radius:14px}
@@ -70,7 +92,7 @@
     .carousel .ctrl{position:absolute; top:50%; translate:0 -50%; background:#0f0f18cc; color:#fff; border:1px solid #3a3a48; padding:.35rem .6rem; border-radius:10px; cursor:pointer}
     .carousel .prev{left:10px} .carousel .next{right:10px}
     .carousel .dots{display:flex; gap:6px; justify-content:center; margin-top:10px}
-    .carousel .dot{width:8px; height:8px; border-radius:999px; background:#3b3b4a}
+    .carousel .dot{width:8px; height:8px; border-radius:999px; background:#3b3b4a; border:0}
     .carousel .dot[aria-current="true"]{background:#9aa0ff}
 
     .bullets{padding-left:20px} .bullets li{margin:6px 0}
@@ -79,12 +101,12 @@
 </head>
 <body>
 
-  <!-- HERO (two lines) -->
+  <!-- HERO (two lines, perfectly centered) -->
   <section class="hero" id="about">
     <div class="inner">
       <h1>
-        <span class="nowrap">SANTIAGO CONSUEGRA</span><br/>
-        <span class="nowrap">GUERRERO</span>
+        <span class="line">SANTIAGO CONSUEGRA</span>
+        <span class="line">GUERRERO</span>
       </h1>
       <p>HVAC Design & Estimating Assistant · CAD Drafter · 3D Printing Enthusiast</p>
     </div>
@@ -203,22 +225,6 @@
     </div>
   </section>
 
-  <!-- EXPERIENCE (kept, not in tabs) -->
-  <section id="experience">
-    <div class="container">
-      <h2>Work Experience</h2>
-      <div class="card">
-        <h3>Mechanical Design / CAD Drafter — Company Name</h3>
-        <p class="lead">Jan 2023 – Present · Remote</p>
-        <ul class="bullets">
-          <li>Produced print-ready drawings (GD&T per ASME Y14.5) for machined parts, sheet-metal, and weldments</li>
-          <li>Maintained xref and Sheet Set integrity; reduced check-backs by 50%</li>
-          <li>Collaborated via PDM/Vault; processed ECR/ECO with clouded revisions</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <!-- FOOTER -->
   <footer>
     <div class="container grid grid-2">
@@ -241,10 +247,14 @@
       const prev=el.querySelector('.prev'), next=el.querySelector('.next');
       const dotsWrap=el.querySelector('.dots');
       let i=slides.findIndex(s=>s.getAttribute('aria-current')==='true'); if(i<0) i=0;
-      function render(){slides.forEach((s,idx)=>s.setAttribute('aria-current',String(idx===i)));
-        dotsWrap.querySelectorAll('.dot').forEach((d,idx)=>d.setAttribute('aria-current',String(idx===i)));}
-      if(dotsWrap){dotsWrap.innerHTML=slides.map((_,idx)=>`<button class="dot" aria-label="Go to slide ${idx+1}"></button>`).join('');
-        dotsWrap.querySelectorAll('.dot').forEach((d,idx)=>d.addEventListener('click',()=>{i=idx;render();}));}
+      function render(){
+        slides.forEach((s,idx)=>s.setAttribute('aria-current',String(idx===i)));
+        dotsWrap.querySelectorAll('.dot').forEach((d,idx)=>d.setAttribute('aria-current',String(idx===i)));
+      }
+      if(dotsWrap){
+        dotsWrap.innerHTML=slides.map((_,idx)=>`<button class="dot" aria-label="Go to slide ${idx+1}"></button>`).join('');
+        dotsWrap.querySelectorAll('.dot').forEach((d,idx)=>d.addEventListener('click',()=>{i=idx;render();}));
+      }
       prev&&prev.addEventListener('click',()=>{i=(i-1+slides.length)%slides.length;render();});
       next&&next.addEventListener('click',()=>{i=(i+1)%slides.length;render();});
       render();
