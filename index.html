@@ -32,7 +32,7 @@
     .hero h1{
       margin:0 0 12px; font-size:clamp(32px,9vw,96px); font-weight:900;
       letter-spacing:.04em; text-transform:uppercase; color:#fff; line-height:1.05;
-      display:flex; flex-direction:column; align-items:center; /* centers both lines */
+      display:flex; flex-direction:column; align-items:center;
     }
     .hero h1 .line{display:block; white-space:nowrap}
     .hero p{margin:0 0 22px; font-size:clamp(16px,2.2vw,26px); color:#f0f0f5}
@@ -58,7 +58,6 @@
     /* GENERAL */
     section{padding:56px 0; border-bottom:1px solid #1f1f28; scroll-margin-top:14px}
     h2{font-size:clamp(22px,3.6vw,30px); margin:0 0 12px}
-    h3{margin:18px 0 8px}
     p{margin:10px 0}
     .lead{color:var(--muted)}
     .grid{display:grid; gap:18px}
@@ -83,23 +82,27 @@
     .carousel .dot{width:8px; height:8px; border-radius:999px; background:#3b3b4a; border:0}
     .carousel .dot[aria-current="true"]{background:#9aa0ff}
 
-    /* ABOUT ME */
-    .about-card{padding:26px}
+    /* ABOUT ME (centered; photo LEFT, text RIGHT) */
+    #about-me h2{ text-align:center; }
+    .about-card{ padding:26px; max-width:1000px; margin-inline:auto; }
     .about-grid{
       display:grid; gap:22px;
-      grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); /* text wider, photo right */
+      grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); /* left: photo, right: text */
       align-items:center;
     }
+    .about-media{ display:flex; justify-content:center; }
     .about-photo{
-      width:100%; max-width:420px; margin-left:auto;
+      width:100%; max-width:420px;
       border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.35);
     }
+    .about-text{ font-size:1.05rem; line-height:1.75; }
     @media (max-width:760px){
       .about-grid{grid-template-columns:1fr}
-      .about-photo{margin:8px auto 0}
+      .about-media{order:-1} /* photo first on mobile */
+      .about-photo{margin:0 auto}
+      #about-me h2{text-align:left}
     }
 
-    .bullets{padding-left:20px} .bullets li{margin:6px 0}
     footer{padding:36px 0; color:var(--muted)}
   </style>
 </head>
@@ -116,13 +119,11 @@
     </div>
   </section>
 
-  <!-- TABS (Portfolio | Resume | LinkedIn with icons) -->
+  <!-- TABS -->
   <nav class="tabbar" id="tabs">
     <ul class="tabs">
       <li><a class="tab" href="#portfolio" aria-current="true">Portfolio</a></li>
       <li class="spacer"></li>
-
-      <!-- Resume icon -->
       <li>
         <a class="tab" href="Resume_Santiago_Consuegra.pdf" target="_blank" rel="noreferrer">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -135,8 +136,6 @@
           Resume
         </a>
       </li>
-
-      <!-- LinkedIn icon -->
       <li>
         <a class="tab" href="https://www.linkedin.com/in/santiagoconsuegra" target="_blank" rel="noreferrer">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -151,7 +150,31 @@
     </ul>
   </nav>
 
-  <!-- PORTFOLIO -->
+  <!-- ABOUT ME (FIRST below tabs) -->
+  <section id="about-me">
+    <div class="container">
+      <h2>About Me</h2>
+      <div class="card about-card">
+        <div class="about-grid">
+          <!-- LEFT: photo -->
+          <div class="about-media">
+            <!-- Replace me.jpg with your actual filename or full URL -->
+            <img class="about-photo" src="me.jpg" alt="Photo of Santiago Consuegra" loading="lazy" />
+          </div>
+          <!-- RIGHT: text -->
+          <div class="about-text">
+            <p>
+              Remote CAD Drafter with 3+ years producing fabrication and assembly drawings in AutoCAD and SolidWorks
+              for survey, job-shop/mechanical, and HVAC projects. Strong in GD&amp;T per ASME Y14.5, weld symbols,
+              sectioning, and BOM workflows;
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO (moved after About Me) -->
   <section id="portfolio">
     <div class="container">
       <h2>Selected Projects</h2>
@@ -251,29 +274,6 @@
           </div>
         </div>
       </article>
-    </div>
-  </section>
-
-  <!-- ABOUT ME (new) -->
-  <section id="about-me">
-    <div class="container">
-      <h2>About Me</h2>
-      <div class="card about-card">
-        <div class="about-grid">
-          <!-- Left: text -->
-          <div>
-            <p class="lead">
-              Remote CAD Drafter with 3+ years producing fabrication and assembly drawings in AutoCAD and SolidWorks
-              for survey, job-shop/mechanical, and HVAC projects. Strong in GD&amp;T per ASME Y14.5, weld symbols,
-              sectioning, and BOM workflows;
-            </p>
-          </div>
-          <!-- Right: photo (replace me.jpg with your file) -->
-          <div>
-            <img class="about-photo" src="me.jpg" alt="Photo of Santiago Consuegra" />
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
