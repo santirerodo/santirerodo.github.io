@@ -10,37 +10,28 @@
       --bg:#0b0b0f; --card:#121218; --ink:#e9e9ef; --muted:#b9b9c7; --link:#7aa2ff;
       --max:1000px;
       --h:0px; /* no header */
-      --hero-dim: .55; /* darkness of the video overlay (0=none, 1=black) */
+      --hero-dim:.55; /* darkness of video overlay */
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{
-      margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      background:var(--bg); color:var(--ink);
-    }
+    body{margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background:var(--bg); color:var(--ink)}
     a{color:var(--link); text-decoration:none}
     a:hover{text-decoration:underline}
     .container{max-width:var(--max); margin-inline:auto; padding:24px}
 
-    /* HERO */
+    /* HERO (video background) */
     .hero{
-      position:relative; display:grid; place-items:center;
-      /* keep an image as a safe fallback */
+      position:relative; display:grid; place-items:center; text-align:center; overflow:hidden;
+      /* image fallback if video can't load */
       background:url('https://images.unsplash.com/photo-1581093448799-55d9b1c40b19?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
-      text-align:center;
-      overflow:hidden; /* hides video edges */
     }
-    /* background VIDEO */
     .hero video.bgvid{
-      position:absolute; inset:0; width:100%; height:100%;
-      object-fit:cover; object-position:center;
-      z-index:0; pointer-events:none; /* never block clicks */
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; pointer-events:none;
     }
-    /* dim/opaque overlay above the video */
     .hero::before{
       content:""; position:absolute; inset:0; z-index:1;
       background:
-        radial-gradient(1200px 600px at 50% 30%, rgba(0,0,0,.0), rgba(0,0,0,var(--hero-dim))) ,
+        radial-gradient(1200px 600px at 50% 30%, rgba(0,0,0,0), rgba(0,0,0,var(--hero-dim))),
         rgba(0,0,0,var(--hero-dim));
     }
     .hero .inner{
@@ -55,21 +46,18 @@
     .hero h1 .line{display:block; white-space:nowrap}
     .hero p{margin:0 0 22px; font-size:clamp(16px,2.2vw,26px); color:#f0f0f5}
 
-    /* ↓↓↓ Scroll cue (bouncy arrow) ↓↓↓ */
+    /* Scroll cue */
     .scroll-cue{
       position:absolute; left:50%; transform:translateX(-50%);
-      bottom:68px; /* JS updates to sit above tab bar */
+      bottom:68px; /* updated by JS to sit above tab bar */
       display:inline-flex; align-items:center; gap:8px;
-      color:#fff; opacity:.9; text-decoration:none;
-      transition:opacity .2s ease, transform .2s ease;
-      z-index:2;
+      color:#fff; opacity:.9; text-decoration:none; transition:opacity .2s ease, transform .2s ease; z-index:2;
     }
     .scroll-cue:hover{opacity:1}
     .scroll-cue.hidden{opacity:0; pointer-events:none}
-    .scroll-cue .arrow{width:30px; height:30px; display:block; }
+    .scroll-cue .arrow{width:30px; height:30px; display:block}
     @keyframes bounceY{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
     .scroll-cue .arrow{animation:bounceY 1.6s ease-in-out infinite}
-
     @media (prefers-reduced-motion:reduce){
       .scroll-cue .arrow{animation:none}
       .hero .inner{transform:none !important}
@@ -86,10 +74,8 @@
     .tabs{max-width:var(--max); margin:0 auto; padding:12px 24px; display:flex; align-items:center; gap:18px; list-style:none}
     .tabs .spacer{flex:1}
     .tab{
-      display:inline-flex; align-items:center; gap:8px;
-      text-transform:uppercase; letter-spacing:.12em; font-weight:800; color:#e9e9ef;
-      padding:10px 14px; border-radius:10px; border:1px solid transparent; white-space:nowrap;
-      font-size:1rem;
+      display:inline-flex; align-items:center; gap:8px; text-transform:uppercase; letter-spacing:.12em; font-weight:800; color:#e9e9ef;
+      padding:10px 14px; border-radius:10px; border:1px solid transparent; white-space:nowrap; font-size:1rem;
     }
     .tab .icon{width:20px; height:20px; flex:none}
     .tab:hover,.tab[aria-current="true"]{background:#1c1c2a; border-color:#2a2a34}
@@ -104,8 +90,9 @@
     @media (max-width:760px){.grid-2{grid-template-columns:1fr}}
     .card{background:var(--card); border:1px solid #232332; border-radius:16px; padding:18px}
     img{max-width:100%; height:auto; display:block; border-radius:12px}
+    .bullets{padding-left:20px} .bullets li{margin:6px 0}
 
-    /* Buttons in project links */
+    /* Buttons */
     .btn{display:inline-block; padding:8px 12px; margin:4px 10px 0 0; border:1px solid #2a2a34; border-radius:10px; background:#161622; color:#e9e9ef; font-weight:700; letter-spacing:.08em; text-transform:uppercase}
     .btn:hover{background:#1c1c2a}
     .btn:focus{outline:2px solid #2a2a34; outline-offset:2px}
@@ -122,22 +109,15 @@
     .carousel .dot[aria-current="true"]{background:#9aa0ff}
 
     /* ABOUT ME */
-    #about-me h2{ text-align:center; }
-    .about-card{ padding:26px; max-width:1000px; margin-inline:auto; }
-    .about-grid{
-      display:grid; gap:22px;
-      grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); /* left: photo, right: text */
-      align-items:center;
-    }
-    .about-media{ display:flex; justify-content:center; }
-    .about-photo{
-      width:100%; max-width:420px;
-      border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.35);
-    }
-    .about-text{ font-size:1.05rem; line-height:1.75; }
+    #about-me h2{text-align:center}
+    .about-card{padding:26px; max-width:1000px; margin-inline:auto}
+    .about-grid{display:grid; gap:22px; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:center}
+    .about-media{display:flex; justify-content:center}
+    .about-photo{width:100%; max-width:420px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .about-text{font-size:1.05rem; line-height:1.75}
     @media (max-width:760px){
       .about-grid{grid-template-columns:1fr}
-      .about-media{order:-1} /* photo first on mobile */
+      .about-media{order:-1}
       .about-photo{margin:0 auto}
       #about-me h2{text-align:left}
     }
@@ -149,15 +129,10 @@
 
   <!-- HERO -->
   <section class="hero" id="about">
-    <!-- Background video (desktop + optional mobile source) -->
+    <!-- Background video (optional files in /media) -->
     <video class="bgvid" autoplay muted loop playsinline preload="none" poster="media/hero.jpg">
-      <!-- mobile first (smaller) -->
       <source src="media/hero-mobile.mp4" type="video/mp4" media="(max-width: 760px)">
-      <!-- desktop fallback -->
       <source src="media/hero.mp4" type="video/mp4">
-      <!-- you can also add a webm version:
-      <source src="media/hero.webm" type="video/webm">
-      -->
     </video>
 
     <div class="inner" id="heroContent">
@@ -176,7 +151,7 @@
     </a>
   </section>
 
-  <!-- TABS (thick) -->
+  <!-- TABS -->
   <nav class="tabbar" id="tabs">
     <ul class="tabs">
       <li><a class="tab" href="#portfolio" aria-current="true">Portfolio</a></li>
@@ -228,13 +203,106 @@
     </div>
   </section>
 
-  <!-- PORTFOLIO -->
+  <!-- PORTFOLIO (with carousels) -->
   <section id="portfolio">
     <div class="container">
       <h2>Selected Projects</h2>
       <p class="lead">Each project includes a brief, highlights, and artifacts (drawing PDF, STEP/DWG, short video).</p>
 
-      <!-- Projects here... -->
+      <!-- Project 1 -->
+      <article class="card" style="margin-top:16px">
+        <h3>Cryogenic Quick-Disconnect (Competition)</h3>
+        <div class="grid grid-2" style="align-items:start">
+          <div>
+            <div class="carousel" data-id="qd">
+              <div class="slides">
+                <img class="slide" aria-current="true" src="https://picsum.photos/seed/qd1/1200/700" alt="Assembly render">
+                <img class="slide" src="https://picsum.photos/seed/qd2/1200/700" alt="Exploded view">
+                <img class="slide" src="https://picsum.photos/seed/qd3/1200/700" alt="Detail view">
+              </div>
+              <button class="ctrl prev" aria-label="Previous slide">‹</button>
+              <button class="ctrl next" aria-label="Next slide">›</button>
+              <div class="dots" aria-label="Slide dots" role="tablist"></div>
+            </div>
+          </div>
+          <div>
+            <p><strong>Objective:</strong> Print-ready assembly with sealing faces and alignment features.
+              <strong>Result:</strong> Released in 2 revs with validated tolerance stack-up and BOM balloons.</p>
+            <ul class="bullets">
+              <li>Datum scheme A-B-C on sealing faces (ASME Y14.5)</li>
+              <li>Thread + surface finish callouts; section/detail views</li>
+              <li>Exploded view with BOM balloons and rev table</li>
+            </ul>
+            <p>
+              <a class="btn" href="#" target="_blank">Drawing PDF</a>
+              <a class="btn" href="#" target="_blank">STEP</a>
+              <a class="btn" href="#" target="_blank">30–60s Video</a>
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2 -->
+      <article class="card" style="margin-top:16px">
+        <h3>Sheet-Metal Bracket</h3>
+        <div class="grid grid-2" style="align-items:start">
+          <div>
+            <div class="carousel" data-id="bracket">
+              <div class="slides">
+                <img class="slide" aria-current="true" src="https://picsum.photos/seed/br1/1200/700" alt="Formed view">
+                <img class="slide" src="https://picsum.photos/seed/br2/1200/700" alt="Flat pattern">
+              </div>
+              <button class="ctrl prev" aria-label="Previous slide">‹</button>
+              <button class="ctrl next" aria-label="Next slide">›</button>
+              <div class="dots"></div>
+            </div>
+          </div>
+          <div>
+            <p><strong>Objective:</strong> Deliver flat pattern and DXF for laser with correct bend data.
+               <strong>Result:</strong> Flat + formed views with bend table, grain arrow, and K-factor.</p>
+            <ul class="bullets">
+              <li>Bend allowance / K-factor documented</li>
+              <li>DFM notes: min flange, hole-edge spacing</li>
+              <li>Finish notes and edge breaks</li>
+            </ul>
+            <p>
+              <a class="btn" href="#" target="_blank">Drawing PDF</a>
+              <a class="btn" href="#" target="_blank">DXF / STEP</a>
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 3 -->
+      <article class="card" style="margin-top:16px">
+        <h3>Piping Spool — ISO</h3>
+        <div class="grid grid-2" style="align-items:start">
+          <div>
+            <div class="carousel" data-id="iso">
+              <div class="slides">
+                <img class="slide" aria-current="true" src="https://picsum.photos/seed/iso1/1200/700" alt="Iso spool">
+                <img class="slide" src="https://picsum.photos/seed/iso2/1200/700" alt="Weld map">
+              </div>
+              <button class="ctrl prev" aria-label="Previous slide">‹</button>
+              <button class="ctrl next" aria-label="Next slide">›</button>
+              <div class="dots"></div>
+            </div>
+          </div>
+          <div>
+            <p><strong>Objective:</strong> Produce isometric with weld IDs and cut list.
+               <strong>Result:</strong> BOM with balloons, slope callouts, and clouded revisions per ECR.</p>
+            <ul class="bullets">
+              <li>Weld notes + identifiers</li>
+              <li>Cut list/BOM with balloons</li>
+              <li>Sheet Set publish; delta triangle revs</li>
+            </ul>
+            <p>
+              <a class="btn" href="#" target="_blank">Drawing PDF</a>
+              <a class="btn" href="#" target="_blank">DWG</a>
+            </p>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -254,6 +322,31 @@
   </footer>
 
   <script>
+    // Carousel
+    function initCarousel(el){
+      const slides=[...el.querySelectorAll('.slide')];
+      const prev=el.querySelector('.prev'), next=el.querySelector('.next');
+      const dotsWrap=el.querySelector('.dots');
+      let i=slides.findIndex(s=>s.getAttribute('aria-current')==='true'); if(i<0) i=0;
+
+      function render(){
+        slides.forEach((s,idx)=>s.setAttribute('aria-current',String(idx===i)));
+        if(dotsWrap){
+          const dots=[...dotsWrap.querySelectorAll('.dot')];
+          dots.forEach((d,idx)=>d.setAttribute('aria-current',String(idx===i)));
+        }
+      }
+
+      if(dotsWrap){
+        dotsWrap.innerHTML=slides.map((_,idx)=>`<button class="dot" aria-label="Go to slide ${idx+1}"></button>`).join('');
+        dotsWrap.querySelectorAll('.dot').forEach((d,idx)=>d.addEventListener('click',()=>{i=idx;render();}));
+      }
+      prev && prev.addEventListener('click',()=>{i=(i-1+slides.length)%slides.length;render();});
+      next && next.addEventListener('click',()=>{i=(i+1)%slides.length;render();});
+      render();
+    }
+    document.querySelectorAll('.carousel').forEach(initCarousel);
+
     // Scroll spy
     const sections=[...document.querySelectorAll('section[id]')];
     const tabLinks=[...document.querySelectorAll('.tabbar .tab[href^="#"]')];
@@ -283,7 +376,7 @@
       }
     }
 
-    // Size hero so the tabbar sits at the bottom, and place arrow above it
+    // Size hero so the tab bar sits at the bottom; place arrow above it
     const hero = document.querySelector('.hero');
     const tabbar = document.querySelector('.tabbar');
     function sizeHero(){
