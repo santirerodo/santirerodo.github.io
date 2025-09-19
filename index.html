@@ -10,11 +10,6 @@
       --bg:#0b0b0f; --card:#121218; --ink:#e9e9ef; --muted:#b9b9c7; --link:#7aa2ff;
       --max:1000px;
       --h:0px; /* no header */
-      /* compact tab sizes */
-      --tab-font:.82rem;
-      --tab-pad-y:6px;
-      --tab-pad-x:12px;
-      --tab-radius:8px;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -28,14 +23,15 @@
 
     /* HERO */
     .hero{
-      position:relative; min-height:72vh; display:grid; place-items:center;
+      position:relative; display:grid; place-items:center;
       background:url('https://images.unsplash.com/photo-1581093448799-55d9b1c40b19?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
-      padding-bottom:50px; text-align:center;
+      /* min-height is set dynamically by JS to: calc(100vh - tabbarHeight) */
+      text-align:center;
     }
     .hero::before{content:""; position:absolute; inset:0; background:rgba(0,0,0,.45)}
     .hero .inner{
       position:relative; z-index:1; padding:40px 16px; max-width:1000px; margin-inline:auto;
-      transition:opacity .18s ease, transform .18s ease;   /* allows smooth fade on scroll */
+      transition:opacity .18s ease, transform .18s ease;
     }
     .hero h1{
       margin:0 0 12px; font-size:clamp(32px,9vw,96px); font-weight:900;
@@ -48,7 +44,7 @@
     /* ↓↓↓ Scroll cue (bouncy arrow) ↓↓↓ */
     .scroll-cue{
       position:absolute; left:50%; transform:translateX(-50%);
-      bottom:68px;  /* keeps it above the tab bar overlap */
+      bottom:68px; /* JS updates this to sit just above the tab bar */
       display:inline-flex; align-items:center; gap:8px;
       color:#fff; opacity:.9; text-decoration:none;
       transition:opacity .2s ease, transform .2s ease;
@@ -65,30 +61,24 @@
       .hero .inner{transform:none !important}
     }
 
-    /* TAB BAR — slimmer proportions */
+    /* TAB BAR (thicker/original look) */
     .tabbar{
       position:sticky; top:var(--h); z-index:10;
       background:rgba(18,18,24,.92);
       border-top:1px solid #2a2a34; border-bottom:1px solid #2a2a34;
       backdrop-filter:blur(6px) saturate(1.1);
-      margin-top:-46px; /* small overlap into hero */
+      /* no negative margin; we size the hero so this lands at the viewport bottom */
       box-shadow:0 8px 24px rgba(0,0,0,.25);
     }
-    .tabs{
-      max-width:var(--max); margin:0 auto;
-      padding:8px 16px;                       /* smaller bar height */
-      display:flex; align-items:center; gap:14px; list-style:none
-    }
+    .tabs{max-width:var(--max); margin:0 auto; padding:12px 24px; display:flex; align-items:center; gap:18px; list-style:none}
     .tabs .spacer{flex:1}
     .tab{
       display:inline-flex; align-items:center; gap:8px;
-      text-transform:uppercase; letter-spacing:.10em; font-weight:800; color:#e9e9ef;
-      font-size:var(--tab-font);
-      padding:var(--tab-pad-y) var(--tab-pad-x);
-      border-radius:var(--tab-radius);
-      border:1px solid transparent; white-space:nowrap;
+      text-transform:uppercase; letter-spacing:.12em; font-weight:800; color:#e9e9ef;
+      padding:10px 14px; border-radius:10px; border:1px solid transparent; white-space:nowrap;
+      font-size:1rem;
     }
-    .tab .icon{width:16px; height:16px; flex:none}  /* smaller icons */
+    .tab .icon{width:20px; height:20px; flex:none}
     .tab:hover,.tab[aria-current="true"]{background:#1c1c2a; border-color:#2a2a34}
 
     /* GENERAL */
@@ -162,7 +152,7 @@
     </a>
   </section>
 
-  <!-- TABS -->
+  <!-- TABS (thicker) -->
   <nav class="tabbar" id="tabs">
     <ul class="tabs">
       <li><a class="tab" href="#portfolio" aria-current="true">Portfolio</a></li>
@@ -386,7 +376,21 @@
         heroContent.style.transform = `translateY(${p*18}px)`; // slight drift down
       }
     }
+
+    // Make the hero exactly viewport height minus the tab bar height,
+    // and place the arrow just above the tab bar.
+    const hero = document.querySelector('.hero');
+    const tabbar = document.querySelector('.tabbar');
+    function sizeHero(){
+      if(!hero || !tabbar) return;
+      const h = tabbar.offsetHeight;
+      hero.style.minHeight = `calc(100vh - ${h}px)`;
+      if(cue) cue.style.bottom = `${h + 12}px`; // 12px breathing room
+    }
+
+    sizeHero();
     onScroll();
+    window.addEventListener('resize', sizeHero);
     window.addEventListener('scroll', onScroll, {passive:true});
   </script>
 </body>
