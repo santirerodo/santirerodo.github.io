@@ -37,6 +37,25 @@
     .hero h1 .line{display:block; white-space:nowrap}
     .hero p{margin:0 0 22px; font-size:clamp(16px,2.2vw,26px); color:#f0f0f5}
 
+    /* ↓↓↓ Scroll cue (bouncy arrow) ↓↓↓ */
+    .scroll-cue{
+      position:absolute; left:50%; transform:translateX(-50%);
+      bottom:68px;  /* keeps it above the tab bar overlap */
+      display:inline-flex; align-items:center; gap:8px;
+      color:#fff; opacity:.9; text-decoration:none;
+      transition:opacity .2s ease, transform .2s ease;
+      z-index:2;
+    }
+    .scroll-cue:hover{opacity:1}
+    .scroll-cue.hidden{opacity:0; pointer-events:none}
+    .scroll-cue .arrow{width:30px; height:30px; display:block; }
+    @keyframes bounceY{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+    .scroll-cue .arrow{animation:bounceY 1.6s ease-in-out infinite}
+
+    @media (prefers-reduced-motion:reduce){
+      .scroll-cue .arrow{animation:none}
+    }
+
     /* TAB BAR */
     .tabbar{
       position:sticky; top:var(--h); z-index:10;
@@ -82,7 +101,7 @@
     .carousel .dot{width:8px; height:8px; border-radius:999px; background:#3b3b4a; border:0}
     .carousel .dot[aria-current="true"]{background:#9aa0ff}
 
-    /* ABOUT ME (centered; photo LEFT, text RIGHT) */
+    /* ABOUT ME */
     #about-me h2{ text-align:center; }
     .about-card{ padding:26px; max-width:1000px; margin-inline:auto; }
     .about-grid{
@@ -117,6 +136,13 @@
       </h1>
       <p>HVAC Design & Estimating Assistant · CAD Drafter · 3D Printing Enthusiast</p>
     </div>
+
+    <!-- Bouncing scroll arrow -->
+    <a class="scroll-cue" href="#about-me" aria-label="Scroll to About Me">
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
   </section>
 
   <!-- TABS -->
@@ -150,7 +176,7 @@
     </ul>
   </nav>
 
-  <!-- ABOUT ME (FIRST below tabs) -->
+  <!-- ABOUT ME (first below tabs) -->
   <section id="about-me">
     <div class="container">
       <h2>About Me</h2>
@@ -158,15 +184,13 @@
         <div class="about-grid">
           <!-- LEFT: photo -->
           <div class="about-media">
-            <!-- Replace me.jpg with your actual filename or full URL -->
             <img class="about-photo" src="me.jpg" alt="Photo of Santiago Consuegra" loading="lazy" />
           </div>
           <!-- RIGHT: text -->
           <div class="about-text">
             <p>
               Remote CAD Drafter with 3+ years producing fabrication and assembly drawings in AutoCAD and SolidWorks
-              for survey, job-shop/mechanical, and HVAC projects. Strong in GD&amp;T per ASME Y14.5, weld symbols,
-              sectioning, and BOM workflows;
+              for survey, job-shop/mechanical, and HVAC projects.
             </p>
           </div>
         </div>
@@ -174,7 +198,7 @@
     </div>
   </section>
 
-  <!-- PORTFOLIO (moved after About Me) -->
+  <!-- PORTFOLIO -->
   <section id="portfolio">
     <div class="container">
       <h2>Selected Projects</h2>
@@ -326,6 +350,16 @@
       });
     },{rootMargin:`0px 0px -60% 0px`,threshold:0.1});
     sections.forEach(s=>obs.observe(s));
+
+    // Hide the scroll cue after you start scrolling a bit
+    const cue=document.querySelector('.scroll-cue');
+    function toggleCue(){
+      if(!cue) return;
+      const hide = window.scrollY > window.innerHeight * 0.15;
+      cue.classList.toggle('hidden', hide);
+    }
+    toggleCue();
+    window.addEventListener('scroll', toggleCue, {passive:true});
   </script>
 </body>
 </html>
