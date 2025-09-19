@@ -15,43 +15,29 @@
     html{scroll-behavior:smooth}
     body{
       margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      background:var(--bg); color:var(--ink)
+      background:var(--bg); color:var(--ink);
     }
     a{color:var(--link); text-decoration:none}
     a:hover{text-decoration:underline}
     .container{max-width:var(--max); margin-inline:auto; padding:24px}
 
-    /* HERO (full-bleed background + overlay) */
+    /* HERO */
     .hero{
       position:relative; min-height:72vh; display:grid; place-items:center;
       background:url('https://images.unsplash.com/photo-1581093448799-55d9b1c40b19?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
-      padding-bottom:50px; /* lets tabs overlap */
-      text-align:center;
+      padding-bottom:50px; text-align:center;
     }
     .hero::before{content:""; position:absolute; inset:0; background:rgba(0,0,0,.45)}
     .hero .inner{position:relative; z-index:1; padding:40px 16px; max-width:1000px; margin-inline:auto}
-
-    /* ** Center each name line perfectly ** */
     .hero h1{
-      margin:0 0 12px;
-      font-size:clamp(32px,9vw,96px);
-      font-weight:900;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-      color:#fff;
-      line-height:1.05;
-      display:flex;                /* key */
-      flex-direction:column;       /* key */
-      align-items:center;          /* key */
+      margin:0 0 12px; font-size:clamp(32px,9vw,96px); font-weight:900;
+      letter-spacing:.04em; text-transform:uppercase; color:#fff; line-height:1.05;
+      display:flex; flex-direction:column; align-items:center; /* perfect centering per line */
     }
-    .hero h1 .line{
-      display:block;
-      white-space:nowrap;          /* keep each line intact */
-    }
-
+    .hero h1 .line{display:block; white-space:nowrap}
     .hero p{margin:0 0 22px; font-size:clamp(16px,2.2vw,26px); color:#f0f0f5}
 
-    /* TAB BAR (overlaps hero bottom; sticks to top on scroll) */
+    /* TAB BAR */
     .tabbar{
       position:sticky; top:var(--h); z-index:10;
       background:rgba(18,18,24,.92);
@@ -62,12 +48,14 @@
     .tabs{max-width:var(--max); margin:0 auto; padding:12px 24px; display:flex; align-items:center; gap:18px; list-style:none}
     .tabs .spacer{flex:1}
     .tab{
+      display:inline-flex; align-items:center; gap:8px;
       text-transform:uppercase; letter-spacing:.12em; font-weight:800; color:#e9e9ef;
       padding:10px 14px; border-radius:10px; border:1px solid transparent; white-space:nowrap;
     }
+    .tab .icon{width:20px; height:20px; flex:none}
     .tab:hover,.tab[aria-current="true"]{background:#1c1c2a; border-color:#2a2a34}
 
-    /* GENERAL LAYOUT */
+    /* GENERAL */
     section{padding:56px 0; border-bottom:1px solid #1f1f28; scroll-margin-top:14px}
     h2{font-size:clamp(22px,3.6vw,30px); margin:0 0 12px}
     h3{margin:18px 0 8px}
@@ -79,7 +67,7 @@
     .card{background:var(--card); border:1px solid #232332; border-radius:16px; padding:18px}
     img{max-width:100%; height:auto; display:block; border-radius:12px}
 
-    /* Buttons used in project links */
+    /* Buttons in project links */
     .btn{display:inline-block; padding:8px 12px; margin:4px 10px 0 0; border:1px solid #2a2a34; border-radius:10px; background:#161622; color:#e9e9ef; font-weight:700; letter-spacing:.08em; text-transform:uppercase}
     .btn:hover{background:#1c1c2a}
     .btn:focus{outline:2px solid #2a2a34; outline-offset:2px}
@@ -101,7 +89,7 @@
 </head>
 <body>
 
-  <!-- HERO (two lines, perfectly centered) -->
+  <!-- HERO -->
   <section class="hero" id="about">
     <div class="inner">
       <h1>
@@ -112,13 +100,39 @@
     </div>
   </section>
 
-  <!-- TABS (only Portfolio, Resume, LinkedIn) -->
+  <!-- TABS (Portfolio | Resume | LinkedIn with icons) -->
   <nav class="tabbar" id="tabs">
     <ul class="tabs">
       <li><a class="tab" href="#portfolio" aria-current="true">Portfolio</a></li>
       <li class="spacer"></li>
-      <li><a class="tab" href="Resume_Santiago_Consuegra.pdf" target="_blank" rel="noreferrer">Resume</a></li>
-      <li><a class="tab" href="https://www.linkedin.com/in/santiagoconsuegra" target="_blank" rel="noreferrer">LinkedIn</a></li>
+
+      <!-- Resume tab with ID-card icon (inline SVG, no external libs) -->
+      <li>
+        <a class="tab" href="Resume_Santiago_Consuegra.pdf" target="_blank" rel="noreferrer">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="10" cy="11" r="2.3" fill="currentColor"/>
+            <path d="M5.5 16.5c1.2-2.4 7.8-2.4 9 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <rect x="14.5" y="8" width="4.8" height="1.8" rx=".9" fill="currentColor"/>
+            <rect x="14.5" y="11.2" width="4.8" height="1.8" rx=".9" fill="currentColor"/>
+          </svg>
+          Resume
+        </a>
+      </li>
+
+      <!-- LinkedIn tab with brand-like square -->
+      <li>
+        <a class="tab" href="https://www.linkedin.com/in/santiagoconsuegra" target="_blank" rel="noreferrer">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="2" y="2" width="20" height="20" rx="3.5" fill="#0A66C2"/>
+            <!-- 'in' simplified -->
+            <rect x="7" y="10" width="2.4" height="7" fill="#fff"/>
+            <circle cx="8.2" cy="7.2" r="1.2" fill="#fff"/>
+            <path d="M11.8 10h2.3c1.6 0 2.9 1.3 2.9 2.9v4.1h-2.4v-3.7c0-.7-.6-1.3-1.3-1.3h-1.4v5h-2.4V10h2.3z" fill="#fff"/>
+          </svg>
+          LinkedIn
+        </a>
+      </li>
     </ul>
   </nav>
 
