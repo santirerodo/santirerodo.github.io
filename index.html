@@ -3,55 +3,78 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Name – Engineering Portfolio</title>
-  <meta name="description" content="Engineering portfolio showcasing CAD projects, drawings, and work experience." />
+  <title>Santiago Consuegra — CAD Portfolio</title>
+  <meta name="description" content="CAD drafting portfolio: AutoCAD, SolidWorks, Inventor. Print-ready drawings, GD&T, sheet-metal, weldments, piping isos." />
   <style>
     :root{
-      --bg:#0b0b0f; --card:#121218; --ink:#e9e9ef; --muted:#b9b9c7; --link:#7aa2ff; --accent:#84ffc9;
+      --bg:#0b0b0f; --card:#121218; --ink:#e9e9ef; --muted:#b9b9c7; --link:#7aa2ff;
       --max:1000px;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--ink)}
+    body{margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+         background:var(--bg); color:var(--ink)}
     a{color:var(--link); text-decoration:none}
     a:hover{text-decoration:underline}
     .container{max-width:var(--max); margin-inline:auto; padding:24px}
-    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(8px); background:color-mix(in oklab, var(--bg) 85%, transparent); border-bottom:1px solid #2a2a34}
+
+    /* HEADER / NAV */
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(8px);
+           background:color-mix(in oklab, var(--bg) 85%, transparent); border-bottom:1px solid #2a2a34}
     nav{display:flex; gap:16px; align-items:center; justify-content:space-between}
     nav .left{display:flex; gap:14px; align-items:center}
     nav .brand{font-weight:800; letter-spacing:0.3px}
     nav .links{display:flex; gap:14px; flex-wrap:wrap}
-    .btn{display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .8rem; border:1px solid #2a2a34; border-radius:.6rem; background:#161622}
+    .btn{display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .8rem;
+         border:1px solid #2a2a34; border-radius:.6rem; background:#161622}
     .btn:hover{background:#1c1c2a}
-    main{display:block}
+
+    /* HERO (full-bleed bg + overlay) */
+    .hero{
+      position: relative;
+      min-height: 72vh;
+      display: grid; place-items: center; text-align: center;
+      background: url('https://images.unsplash.com/photo-1581093448799-55d9b1c40b19?q=80&w=1920&auto=format&fit=crop') center / cover no-repeat;
+    }
+    .hero::before{content:""; position:absolute; inset:0; background:rgba(0,0,0,.45)}
+    .hero .inner{position:relative; z-index:1; padding:40px 16px; max-width:1000px}
+    .hero h1{margin:0 0 12px; font-size:clamp(42px, 10vw, 96px); font-weight:900;
+             letter-spacing:.04em; text-transform:uppercase; color:#fff}
+    .hero p{margin:0 0 22px; font-size:clamp(16px, 2.2vw, 26px); color:#f0f0f5}
+    .btn-cta{
+      display:inline-flex; align-items:center; gap:.5rem; padding:.7rem 1.1rem;
+      border-radius:10px; background:#fff; color:#111; border:1px solid #d7d7e0;
+      text-decoration:none; font-weight:600;
+    }
+    .btn-cta:hover{background:#f3f3f8}
+
+    /* GENERAL LAYOUT */
     section{padding:56px 0; border-bottom:1px solid #1f1f28}
-    h1{font-size:clamp(28px, 5vw, 44px); line-height:1.1; margin:0}
     h2{font-size:clamp(22px, 3.6vw, 30px); line-height:1.2; margin:0 0 12px}
     h3{margin:18px 0 8px}
     p{margin:10px 0}
     .lead{color:var(--muted)}
-
     .grid{display:grid; gap:18px}
     .grid-2{grid-template-columns:repeat(2, minmax(0,1fr))}
     @media (max-width:760px){.grid-2{grid-template-columns:1fr}}
-
     .card{background:var(--card); border:1px solid #232332; border-radius:16px; padding:18px}
     figure{margin:0}
     img{max-width:100%; height:auto; display:block; border-radius:12px}
 
-    /* Carousel */
+    /* CAROUSEL */
     .carousel{position:relative}
     .slides{position:relative; overflow:hidden; border-radius:14px}
     .slide{display:none; inset:0; width:100%}
     .slide[aria-current="true"]{display:block}
-    .carousel .ctrl{position:absolute; top:50%; translate:0 -50%; background:#0f0f18cc; color:#fff; border:1px solid #3a3a48; padding:.35rem .6rem; border-radius:10px; cursor:pointer}
+    .carousel .ctrl{position:absolute; top:50%; translate:0 -50%; background:#0f0f18cc;
+      color:#fff; border:1px solid #3a3a48; padding:.35rem .6rem; border-radius:10px; cursor:pointer}
     .carousel .prev{left:10px}
     .carousel .next{right:10px}
     .carousel .dots{display:flex; gap:6px; justify-content:center; margin-top:10px}
     .carousel .dot{width:8px; height:8px; border-radius:999px; background:#3b3b4a}
     .carousel .dot[aria-current="true"]{background:#9aa0ff}
 
-    /* Simple list blocks */
+    /* LISTS */
     .bullets{padding-left:20px}
     .bullets li{margin:6px 0}
 
@@ -59,167 +82,175 @@
   </style>
 </head>
 <body>
+
+  <!-- NAV -->
   <header>
     <div class="container">
       <nav>
         <div class="left">
-          <span class="brand">Your Name</span>
+          <span class="brand">Santiago Consuegra</span>
           <span class="muted">· Engineering Portfolio</span>
         </div>
         <div class="links">
           <a class="btn" href="#portfolio">Portfolio</a>
           <a class="btn" href="#experience">Work Experience</a>
-          <a class="btn" href="Resume_YourName.pdf" target="_blank" rel="noreferrer">Resume</a>
+          <a class="btn" href="Resume_Santiago_Consuegra.pdf" target="_blank" rel="noreferrer">Resume</a>
           <a class="btn" href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a class="btn" href="https://github.com/your-github" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn" href="https://github.com/santierodo" target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </nav>
     </div>
   </header>
 
-  <main>
-    <!-- HERO / ABOUT -->
-    <section id="about">
-      <div class="container grid grid-2" style="align-items:center">
-        <div>
-          <h1>Engineering Portfolio<br/><span class="lead">A showcase of selected CAD projects and build work.</span></h1>
-          <p class="lead">Drafter with 3+ years producing print‑ready drawings: machined parts with GD&T, sheet‑metal flats, weldments, and piping isometrics. Fast revisions with xref/sheet set integrity.</p>
-          <p class="lead">Tools: AutoCAD · SolidWorks · Inventor · eDrawings · PDM/Vault</p>
-          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
-            <a class="btn" href="#portfolio">See projects ↓</a>
-            <a class="btn" href="mailto:you@example.com">you@example.com</a>
+  <!-- HERO -->
+  <section class="hero" id="about">
+    <div class="inner">
+      <h1>SANTIAGO CONSUEGRA</h1>
+      <p>Mechanical Designer · CAD Drafter · 3D Printing Enthusiast</p>
+      <p>
+        <a class="btn-cta" href="Resume_Santiago_Consuegra.pdf" download>⬇ Download Resume</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="container">
+      <h2>Selected Projects</h2>
+      <p class="lead">Each project includes a brief, highlights, and artifacts (drawing PDF, STEP/DWG, short video).</p>
+
+      <!-- Project 1 -->
+      <article class="card" style="margin-top:16px">
+        <h3>Cryogenic Quick-Disconnect (Competition)</h3>
+        <div class="grid grid-2" style="align-items:start">
+          <div>
+            <div class="carousel" data-id="qd">
+              <div class="slides">
+                <img class="slide" aria-current="true" src="https://picsum.photos/seed/qd1/1200/700" alt="Assembly render">
+                <img class="slide" src="https://picsum.photos/seed/qd2/1200/700" alt="Exploded view">
+                <img class="slide" src="https://picsum.photos/seed/qd3/1200/700" alt="Detail view">
+              </div>
+              <button class="ctrl prev" aria-label="Previous slide">‹</button>
+              <button class="ctrl next" aria-label="Next slide">›</button>
+              <div class="dots" aria-label="Slide dots" role="tablist"></div>
+            </div>
+          </div>
+          <div>
+            <p><strong>Objective:</strong> Print-ready assembly with sealing faces and alignment features.
+              <strong>Result:</strong> Released in 2 revs with validated tolerance stack-up and BOM balloons.</p>
+            <ul class="bullets">
+              <li>Datum scheme A-B-C on sealing faces (ASME Y14.5)</li>
+              <li>Thread + surface finish callouts; section/detail views</li>
+              <li>Exploded view with BOM balloons and rev table</li>
+            </ul>
+            <p>
+              <a class="btn" href="#" target="_blank">Drawing PDF</a>
+              <a class="btn" href="#" target="_blank">STEP</a>
+              <a class="btn" href="#" target="_blank">30–60s Video</a>
+            </p>
           </div>
         </div>
-        <div>
-          <div class="card"><figure><img src="https://images.unsplash.com/photo-1581094651181-3592d13e1be9?q=80&w=1200&auto=format&fit=crop" alt="Portfolio cover image placeholder"/></figure></div>
+      </article>
+
+      <!-- Project 2 -->
+      <article class="card" style="margin-top:16px">
+        <h3>Sheet-Metal Bracket</h3>
+        <div class="grid grid-2" style="align-items:start">
+          <div>
+            <div class="carousel" data-id="bracket">
+              <div class="slides">
+                <img class="slide" aria-current="true" src="https://picsum.photos/seed/br1/1200/700" alt="Formed view">
+                <img class="slide" src="https://picsum.photos/seed/br2/1200/700" alt="Flat pattern">
+              </div>
+              <button class="ctrl prev" aria-label="Previous slide">‹</button>
+              <button class="ctrl next" aria-label="Next slide">›</button>
+              <div class="dots"></div>
+            </div>
+          </div>
+          <div>
+            <p><strong>Objective:</strong> Deliver flat pattern and DXF for laser with correct bend data.
+               <strong>Result:</strong> Flat + formed views with bend table, grain arrow, and K-factor.</p>
+            <ul class="bullets">
+              <li>Bend allowance / K-factor documented</li>
+              <li>DFM notes: min flange, hole-edge spacing</li>
+              <li>Finish notes and edge breaks</li>
+            </ul>
+            <p>
+              <a class="btn" href="#" target="_blank">Drawing PDF</a>
+              <a class="btn" href="#" target="_blank">DXF / STEP</a>
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
+      </article>
 
-    <!-- PORTFOLIO -->
-    <section id="portfolio">
-      <div class="container">
-        <h2>Selected Projects</h2>
-        <p class="lead">Each project page includes a brief, highlights, and artifacts (drawing PDF, STEP/DWG, short video).</p>
-
-        <!-- Project 1 -->
-        <article class="card" style="margin-top:16px">
-          <h3>Glaukos – Senior Capstone Fixture</h3>
-          <div class="grid grid-2" style="align-items:start">
-            <div>
-              <div class="carousel" data-id="capstone">
-                <div class="slides">
-                  <img class="slide" aria-current="true" src="https://picsum.photos/seed/cap1/1200/700" alt="Fixture render"/>
-                  <img class="slide" src="https://picsum.photos/seed/cap2/1200/700" alt="Mechanism detail"/>
-                  <img class="slide" src="https://picsum.photos/seed/cap3/1200/700" alt="Control UI screenshot"/>
-                </div>
-                <button class="ctrl prev" aria-label="Previous slide">‹</button>
-                <button class="ctrl next" aria-label="Next slide">›</button>
-                <div class="dots" aria-label="Slide dots" role="tablist"></div>
+      <!-- Project 3 -->
+      <article class="card" style="margin-top:16px">
+        <h3>Piping Spool — ISO</h3>
+        <div class="grid grid-2" style="align-items:start">
+          <div>
+            <div class="carousel" data-id="iso">
+              <div class="slides">
+                <img class="slide" aria-current="true" src="https://picsum.photos/seed/iso1/1200/700" alt="Iso spool">
+                <img class="slide" src="https://picsum.photos/seed/iso2/1200/700" alt="Weld map">
               </div>
-            </div>
-            <div>
-              <p><strong>Objective:</strong> Develop a fatigue‑test fixture with anatomically accurate interface and ±1% force capture. <strong>Result:</strong> Working fixture capable of downward force + rotational rub, with logged forces.</p>
-              <ul class="bullets">
-                <li>Exploded assembly with BOM balloons</li>
-                <li>Datum scheme A‑B‑C for critical faces (ASME Y14.5)</li>
-                <li>Section & detail views for fits; surface finish + thread callouts</li>
-              </ul>
-              <p>
-                <a class="btn" href="#" target="_blank">Drawing PDF</a>
-                <a class="btn" href="#" target="_blank">STEP</a>
-                <a class="btn" href="#" target="_blank">30–60s Video</a>
-              </p>
+              <button class="ctrl prev" aria-label="Previous slide">‹</button>
+              <button class="ctrl next" aria-label="Next slide">›</button>
+              <div class="dots"></div>
             </div>
           </div>
-        </article>
-
-        <!-- Project 2 -->
-        <article class="card" style="margin-top:16px">
-          <h3>PLIF Surgical Tool Design</h3>
-          <div class="grid grid-2" style="align-items:start">
-            <div>
-              <div class="carousel" data-id="plif">
-                <div class="slides">
-                  <img class="slide" aria-current="true" src="https://picsum.photos/seed/plif1/1200/700" alt="Inserter tool"/>
-                  <img class="slide" src="https://picsum.photos/seed/plif2/1200/700" alt="Handle with spring + plunger"/>
-                  <img class="slide" src="https://picsum.photos/seed/plif3/1200/700" alt="Socket end threaded"/>
-                </div>
-                <button class="ctrl prev" aria-label="Previous slide">‹</button>
-                <button class="ctrl next" aria-label="Next slide">›</button>
-                <div class="dots" aria-label="Slide dots" role="tablist"></div>
-              </div>
-            </div>
-            <div>
-              <p><strong>Objective:</strong> Design interbody + inserter with socket‑style locking; <strong>Result:</strong> Robust tool with disassembly for cleaning and reliable insert‑and‑rotate procedure.</p>
-              <ul class="bullets">
-                <li>Exploded view + balloons; rev table</li>
-                <li>Functional GD&T (position, perpendicularity)</li>
-                <li>Thread table; surface finish notes</li>
-              </ul>
-              <p>
-                <a class="btn" href="#" target="_blank">Drawing PDF</a>
-                <a class="btn" href="#" target="_blank">STEP</a>
-              </p>
-            </div>
+          <div>
+            <p><strong>Objective:</strong> Produce isometric with weld IDs and cut list.
+               <strong>Result:</strong> BOM with balloons, slope callouts, and clouded revisions per ECR.</p>
+            <ul class="bullets">
+              <li>Weld notes + identifiers</li>
+              <li>Cut list/BOM with balloons</li>
+              <li>Sheet Set publish; delta triangle revs</li>
+            </ul>
+            <p>
+              <a class="btn" href="#" target="_blank">Drawing PDF</a>
+              <a class="btn" href="#" target="_blank">DWG</a>
+            </p>
           </div>
-        </article>
-
-        <!-- Project 3 -->
-        <article class="card" style="margin-top:16px">
-          <h3>Butterfly Valve – Throttle Body</h3>
-          <div class="grid grid-2" style="align-items:start">
-            <div>
-              <div class="carousel" data-id="valve">
-                <div class="slides">
-                  <img class="slide" aria-current="true" src="https://picsum.photos/seed/valve1/1200/700" alt="3/4 view"/>
-                  <img class="slide" src="https://picsum.photos/seed/valve2/1200/700" alt="Top‑down view"/>
-                </div>
-                <button class="ctrl prev" aria-label="Previous slide">‹</button>
-                <button class="ctrl next" aria-label="Next slide">›</button>
-                <div class="dots" aria-label="Slide dots" role="tablist"></div>
-              </div>
-            </div>
-            <div>
-              <p><strong>Objective:</strong> Design a mechanical throttle body including fasteners; <strong>Result:</strong> Working assembly allowing cable‑driven pivot for carburetor air intake regulation.</p>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- EXPERIENCE -->
-    <section id="experience">
-      <div class="container">
-        <h2>Work Experience</h2>
-        <div class="card">
-          <h3>Mechanical Design / CAD Drafter — Company Name</h3>
-          <p class="lead">Jan 2023 – Present · Remote</p>
-          <ul class="bullets">
-            <li>Produced print‑ready drawings (GD&T per ASME Y14.5) for machined parts, sheet‑metal, and weldments</li>
-            <li>Maintained xref and Sheet Set integrity; reduced check‑backs by 50%</li>
-            <li>Collaborated via PDM/Vault; processed ECR/ECO with clouded revisions</li>
-          </ul>
         </div>
-      </div>
-    </section>
-  </main>
+      </article>
 
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <h2>Work Experience</h2>
+      <div class="card">
+        <h3>Mechanical Design / CAD Drafter — Company Name</h3>
+        <p class="lead">Jan 2023 – Present · Remote</p>
+        <ul class="bullets">
+          <li>Produced print-ready drawings (GD&T per ASME Y14.5) for machined parts, sheet-metal, and weldments</li>
+          <li>Maintained xref and Sheet Set integrity; reduced check-backs by 50%</li>
+          <li>Collaborated via PDM/Vault; processed ECR/ECO with clouded revisions</li>
+        </ul>
+      </div>
+      <!-- Duplicate the card above for more roles -->
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
     <div class="container grid grid-2">
       <div>
         <strong>Resume</strong>
-        <p><a href="Resume_YourName.pdf" target="_blank" rel="noreferrer">Open Resume PDF</a></p>
+        <p><a href="Resume_Santiago_Consuegra.pdf" target="_blank" rel="noreferrer">Open Resume PDF</a></p>
       </div>
       <div>
         <strong>Contact</strong>
-        <p>📱 (555) 123‑4567 · ✉️ <a href="mailto:you@example.com">you@example.com</a></p>
-        <p>🔗 <a href="https://linkedin.com/in/your-handle" target="_blank" rel="noreferrer">LinkedIn</a> · <a href="https://github.com/your-github" target="_blank" rel="noreferrer">GitHub</a></p>
+        <p>✉️ <a href="mailto:santierodo@example.com">santierodo@example.com</a></p>
+        <p>🔗 <a href="https://linkedin.com/in/your-handle" target="_blank" rel="noreferrer">LinkedIn</a> ·
+               <a href="https://github.com/santierodo" target="_blank" rel="noreferrer">GitHub</a></p>
       </div>
     </div>
   </footer>
 
+  <!-- CAROUSEL SCRIPT -->
   <script>
     // Minimal, reusable carousel with dots + prev/next
     function initCarousel(el){
